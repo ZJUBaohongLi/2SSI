@@ -338,11 +338,12 @@ class TSSIModel:
         if self.covariate_net:
             covariate_feature = self.covariate_net(covariate)
         if instrumental is not None:
-            feature = TSSIModel.augment_stage1_feature(instrumental,
+            instrumental_feature = self.instrumental_net(instrumental)
+            feature = TSSIModel.augment_stage1_feature(instrumental_feature,
                                                        self.add_stage1_intercept)
             predicted_treatment_feature = linear_reg_pred(feature, self.stage1_weight)
             residual_feature = treatment_feature - predicted_treatment_feature
-            phi_feature = self.phi_net(instrumental)
+            phi_feature = self.phi_net(instrumental_feature)
             condition_feature = torch.concat((residual_feature, phi_feature), 1)
         else:
             condition_feature = torch.zeros((len(treatment), self.condition_dim))
