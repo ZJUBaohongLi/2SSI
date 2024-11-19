@@ -3,7 +3,38 @@ from torch import nn
 
 class Config:
     config = {
-        "model_structure": [
+        "train_params": {
+            "distance_dim": 1,
+            "lam1": 0.1,
+            "lam2": 0.1,
+            "lam3": 0.1,
+            "stage1_iter": 20,
+            "covariate_iter": 20,
+            "mi_iter": 20,
+            "odds_iter": 100,
+            "stage2_iter": 1,
+            "lam4": 0.1,
+            "n_epoch": 100,
+            "treatment_weight_decay": 0.0,
+            "instrumental_weight_decay": 0.0,
+            "covariate_weight_decay": 0.1,
+            "s1_weight_decay": 0.0,
+            "odds_weight_decay": 0.0,
+            "selection_weight_decay": 0.0,
+            "r0_weight_decay": 0.0,
+            "r1_weight_decay": 0.0
+        }
+    }
+    experiment_num = 50
+    c_strength = 10
+    u_strength = 10
+    sample_num = 5000
+
+    def __init__(self):
+        self.networks = self.initialize_model_structure()
+
+    def initialize_model_structure(self):
+        networks = [
             nn.Sequential(nn.Linear(1, 1)),
 
             nn.Sequential(nn.Linear(3, 128),
@@ -55,30 +86,5 @@ class Config:
                           nn.Linear(16, 1),
                           nn.Softplus()
                           ),
-        ],
-        "train_params": {
-            "distance_dim": 1,
-            "lam1": 0.1,
-            "lam2": 0.1,
-            "lam3": 0.1,
-            "stage1_iter": 20,
-            "covariate_iter": 20,
-            "mi_iter": 20,
-            "odds_iter": 100,
-            "stage2_iter": 1,
-            "lam4": 0.1,
-            "n_epoch": 100,
-            "treatment_weight_decay": 0.0,
-            "instrumental_weight_decay": 0.0,
-            "covariate_weight_decay": 0.1,
-            "s1_weight_decay": 0.0,
-            "odds_weight_decay": 0.0,
-            "selection_weight_decay": 0.0,
-            "r0_weight_decay": 0.0,
-            "r1_weight_decay": 0.0
-        }
-    }
-    experiment_num = 50
-    c_strength = 10
-    u_strength = 10
-    sample_num = 5000
+        ]
+        return networks

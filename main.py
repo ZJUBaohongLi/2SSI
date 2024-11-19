@@ -8,7 +8,8 @@ if __name__ == '__main__':
     try:
         res_list = []
         for idx in range(Config.experiment_num):
-            model = TSSITrainer(Config.config['model_structure'], Config.config['train_params'], True)
+            my_config = Config()
+            model = TSSITrainer(my_config.networks, Config.config['train_params'], True)
             res = model.train(rand_seed=42)
             res_list.append(res)
         res_list = np.array(res_list)
