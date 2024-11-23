@@ -90,7 +90,7 @@ class TSSITrainer(object):
         oos_result : float
             The performance of model evaluated by oos
         """
-        train_data, unselected_train_data, test_data, unselected_test_data = demand(Config.sample_num * 10,
+        train_data, unselected_train_data, test_data, unselected_test_data = demand(Config.sample_num * 5,
                                                                                         rand_seed)
         train_1st_t, train_2nd_t, train_3rd_t = concat_dataset(train_data,
                                                                unselected_train_data), train_data, unselected_train_data
